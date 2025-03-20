@@ -15,10 +15,15 @@ But I dare to say I know technology and I can solve tasks.
 And I want to create somwething meaningful and beautiful.
 
 Here are ideas I have so far:
+// TODO add links here
 1. Human-verification platform (link here)
 2. AI-driven "forum"
-3. Manifest
 4. Elon's Radio
+5. Real Fake News
+6. Anonymous single-messenger.
+
+I also have a separate folder for my thoughts of non-IT nature. Sometimes political staff. I warned you. Here it is.
+
 
 PS:  Don't expect me to follow strict commercial and industrial software best practices and rules here. I feed family of six following them and making sure others are also follow them 40hrs a week.
 PS2: I will probably try to write this as some kind of a techno-post-literature and experiment with this media as a self-expression platform.
