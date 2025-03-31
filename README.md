@@ -21,6 +21,8 @@ Here are ideas I have so far:
 4. Elon's Radio
 5. Real Fake News
 6. Anonymous single-messenger.
+7. AI animation of old photos (+ prompting)
+8. 
 
 I also have a separate folder for my thoughts of non-IT nature. Sometimes political staff. I warned you. Here it is.
 
