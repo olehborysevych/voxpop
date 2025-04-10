@@ -22,7 +22,8 @@ Here are ideas I have so far:
 5. Real Fake News
 6. Anonymous single-messenger.
 7. AI animation of old photos (+ prompting)
-8. 
+8. Day Off for humans. The "Human Day" once in for years. In 2028 someone should already celebrate it. 29th Feb also an INternational Underlings Day. 
+9.   
 
 I also have a separate folder for my thoughts of non-IT nature. Sometimes political staff. I warned you. Here it is.
 
