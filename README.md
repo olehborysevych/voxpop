@@ -25,7 +25,7 @@ Here are ideas I have so far:
 8. Day Off for humans. The "Human Day" once in for years. In 2028 someone should already celebrate it. 29th Feb also an International Underlings Day. 
 9. Déjà-vu study platform
 10. Invasive plant reporting
-11.   
+11. Autonomous Ant Lab — kitchen table + camera + neural net for collective intelligence research, AI co-designed experiments
 
 I also have a separate folder for my thoughts of non-IT nature. Sometimes political staff. I warned you. Here it is.
 
