@@ -26,6 +26,7 @@ Here are ideas I have so far:
 9. Déjà-vu study platform
 10. Invasive plant reporting
 11. Autonomous Ant Lab — kitchen table + camera + neural net for collective intelligence research, AI co-designed experiments
+12. Snapnote — background tool, hotkey triggers screenshot + voice note, bundled as evidence into a research session
 
 I also have a separate folder for my thoughts of non-IT nature. Sometimes political staff. I warned you. Here it is.
 
