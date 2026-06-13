@@ -9,6 +9,12 @@ Configurable global hotkey (triple-tap space, or a safer modifier combo). On tri
 3. You say what this is: "auth bug, add to the payments investigation", "new thing, customer keeps getting logged out", "ticket: dropdown is broken on mobile".
 4. Recording stops on silence or a second key press.
 
+### Scenarios (this is the actual job)
+
+- **Teams ping → review request.** Notification pops up, someone needs a review. Screenshot the message, say "review request from X, need to look at their PR." Later, screenshot the PR link, say "this is the PR for that review." The agent merges both into one task — same person, same topic, time-correlated — instead of two orphaned notes.
+- **Something weird in logs/Datadog.** Screenshot the graph or log line, say what's odd and what should happen next ("error rate spiked at 14:00, check the deploy that went out then"). This becomes a task with enough context to either investigate now or hand to a proper AI session later.
+- **The actual need: nothing gets lost, and you can see what's open.** You context-switch constantly. The value isn't the note itself — it's a guarantee that "I flagged this" turns into "there's an open task for this, visible somewhere, and it'll nag me if it sits too long."
+
 ### What changes: there's a local agent in the loop
 
 The capture doesn't just get filed — it gets *understood*, immediately, on-device.
@@ -28,6 +34,15 @@ This is the "agent that captures what I see and think" — it's not trying to be
 - New capture either appends to an existing investigation (matched by the local model) or starts a new one.
 - Investigations can be marked private — excluded from any escalation/export, stays local only.
 - Quick review/merge UI: rename investigations, re-file a capture that got misclassified, merge two investigations the local model split by mistake.
+
+### Tracking open loops: status & staleness
+
+Every investigation has a status: `open` / `pending` (waiting on something else, e.g. the PR you flagged for review) / `escalated` / `done`. This is the actual point — the thing the user is asking for isn't a note archive, it's a guarantee that nothing dropped.
+
+- Each capture timestamps the investigation's `last_updated`. If an `open` investigation goes quiet past some threshold (an hour? end of day?), it's flagged as **stale**.
+- A minimal always-visible surface (tray icon badge, small persistent widget, or a hotkey that pops a list) shows: count of open items, anything stale, anything pending a response from someone else.
+- This is the "make sure it's not lost" guarantee — you dump and move on, trusting the list will surface it again if it sits too long.
+- Marking something `done` can itself be a capture: screenshot + "done, merged" — the agent matches it to the open investigation and closes it.
 
 ### Escalation: when the local agent isn't enough
 
@@ -58,9 +73,14 @@ The local model is for triage, not for doing the work. When an investigation nee
 - Escalation: shell out to `claude` CLI (Claude Code) with investigation context piped in; ticket-creation skill calls corporate Jira CLI/API.
 - Simple local UI (web view or native) for browsing investigations, reviewing/merging, and triggering escalation manually.
 
+### What this is not
+
+Not a notes app. The store can be dumb (SQLite + files) because the value isn't in browsing or linking notes — it's the 2-second capture gesture, the auto-filing, and the open/stale list. If it grows a rich note editor or wiki-style linking, that's scope creep — better to escalate *into* a real destination (Jira, Confluence, Notion) and let that be where things live long-term.
+
 ### Open questions
 
-- How good does a small local model need to be to reliably tell "new investigation" vs "append to existing"? Probably needs a fallback: if confidence is low, ask (a quick popup) rather than guess.
+- How good does a small local model need to be to reliably tell "new investigation" vs "append to existing" vs "this closes that one"? Probably needs a fallback: if confidence is low, ask (a quick popup) rather than guess.
 - What's the trigger for auto-escalation — capture count? explicit "investigate this" keyword in the voice note? time since last update?
 - How much history/context gets passed to Claude Code per session — full transcript log, or a rolling summary to keep token usage sane?
 - Corporate AI CLI integration: what auth/skill model does it expose, and can it be scripted the same way as Claude Code?
+- What's "stale" in practice — a fixed timeout, or different thresholds per status (`pending` on someone else vs `open` on you)?
