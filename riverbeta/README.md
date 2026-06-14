@@ -38,6 +38,50 @@ I want to pull it out and turn it into a map.
 
 ---
 
+### Implementation
+
+A first working version lives in this folder as a Python CLI, `riverbeta`. Everything runs locally — no cloud APIs:
+
+- **Download:** `yt-dlp` + `ffmpeg` (external binaries, must be installed separately)
+- **Transcription + translation:** `faster-whisper` running a local model (CPU by default, `--device cuda` if you have a GPU)
+- **Hazard extraction:** pure regex/keyword matching over the transcript (English/Ukrainian/Russian terms for weirs, rapids, strainers, portages, eddies, sieves, undercuts, holes)
+- **Color map + scene changes:** `numpy`/`Pillow` only
+
+Install:
+
+```bash
+cd riverbeta
+pip install -e .
+```
+
+Run the whole pipeline:
+
+```bash
+riverbeta run "https://www.youtube.com/watch?v=XXXX" --out output/my-trip
+```
+
+Or run each step on its own (useful for iterating, e.g. re-running `hazards` after tweaking the keyword list without re-transcribing):
+
+```bash
+riverbeta fetch "https://www.youtube.com/watch?v=XXXX" --out output/my-trip
+riverbeta transcribe --out output/my-trip --model small
+riverbeta frames --out output/my-trip --fps 1
+riverbeta colormap --out output/my-trip
+riverbeta hazards --out output/my-trip
+riverbeta report --out output/my-trip
+```
+
+This writes `output/my-trip/report.html` — a timeline of cards, each with a thumbnail, a link back to the video at the right timestamp, the original-language quote, and its English translation, plus a `colormap.png` showing the visual fingerprint of the whole video.
+
+Run the test suite (covers hazard extraction, color map, scene detection, report rendering — the parts that don't need a real video):
+
+```bash
+pip install pytest
+pytest
+```
+
+---
+
 ### Open Questions
 
 - **Geocoding.** Most paddling videos have zero GPS data. The title/description usually names the river and put-in/take-out — that plus named landmarks in the narration ("after the old mill", "the bridge at X") might be enough for rough pins, but it's manual-ish.

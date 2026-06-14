@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "riverbeta"
+version = "0.1.0"
+description = "Turn a narrated trip video into an illustrated, timestamped map of obstacles and landmarks."
+requires-python = ">=3.10"
+dependencies = [
+    "yt-dlp",
+    "faster-whisper",
+    "numpy",
+    "pillow",
+    "jinja2",
+]
+
+[project.scripts]
+riverbeta = "riverbeta.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+riverbeta = ["templates/*.j2"]

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ title }} — Riverbeta</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; color: #222; }
+  h1 { margin-bottom: 0.2rem; }
+  .meta { color: #666; margin-bottom: 1.5rem; }
+  .colormap { width: 100%; image-rendering: pixelated; border: 1px solid #ddd; margin-bottom: 2rem; }
+  .card { display: flex; gap: 1rem; border: 1px solid #ddd; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
+  .card img { width: 200px; height: auto; border-radius: 4px; flex-shrink: 0; }
+  .card .body { flex: 1; }
+  .tag { display: inline-block; padding: 0.1rem 0.5rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600; margin-right: 0.4rem; text-transform: uppercase; }
+  .tag.hazard { background: #fde2e1; color: #a3231f; }
+  .tag.side { background: #e2eefd; color: #1f4ea3; }
+  .tag.severity-high { background: #fff1cc; color: #946200; }
+  .timestamp a { font-weight: 600; text-decoration: none; }
+  .text-original { font-style: italic; margin: 0.5rem 0; }
+  .text-english { color: #444; margin: 0; }
+</style>
+</head>
+<body>
+  <h1>{{ title }}</h1>
+  <div class="meta">
+    {% if language %}Source language: {{ language }}{% endif %}
+    {% if description %}<p>{{ description }}</p>{% endif %}
+  </div>
+
+  {% if colormap_image %}
+  <img class="colormap" src="{{ colormap_image }}" alt="Pixel color map of the video over time">
+  {% endif %}
+
+  {% if not cards %}
+  <p>No hazard mentions found in the transcript.</p>
+  {% endif %}
+
+  {% for card in cards %}
+  <div class="card">
+    <img src="frames/{{ card.thumbnail }}" alt="Frame at {{ card.timestamp }}">
+    <div class="body">
+      <div class="timestamp">
+        {% if card.video_link %}
+        <a href="{{ card.video_link }}" target="_blank">{{ card.timestamp }}</a>
+        {% else %}
+        {{ card.timestamp }}
+        {% endif %}
+      </div>
+      <div class="tags">
+        <span class="tag hazard">{{ card.hazard_type }}</span>
+        {% if card.side %}<span class="tag side">{{ card.side }}</span>{% endif %}
+        {% if card.severity == "high" %}<span class="tag severity-high">caution</span>{% endif %}
+      </div>
+      <p class="text-original">{{ card.text_original }}</p>
+      {% if card.text_english %}
+      <p class="text-english">{{ card.text_english }}</p>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</body>
+</html>
