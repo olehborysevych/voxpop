@@ -27,6 +27,7 @@ Here are ideas I have so far:
 10. Invasive plant reporting
 11. Autonomous Ant Lab — kitchen table + camera + neural net for collective intelligence research, AI co-designed experiments
 12. Snapnote — hotkey screenshot + voice note, triaged by a local edge model into investigations, escalated to Claude Code / Jira when needed
+13. Riverbeta — turn a narrated trip video (kayaking, hiking, etc.) into an illustrated map: transcribe + translate with timestamps, extract hazard/landmark mentions, sample frames into a color map to find scene changes and pick illustrative thumbnails
 
 I also have a separate folder for my thoughts of non-IT nature. Sometimes political staff. I warned you. Here it is.
 
